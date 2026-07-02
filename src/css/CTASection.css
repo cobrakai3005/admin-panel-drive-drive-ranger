@@ -1,0 +1,147 @@
+.cta{
+  min-height:90vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  background:#ece7db;
+}
+
+.cta-content{
+  max-width:900px;
+}
+
+.cta-content span{
+  color:var(--accent);
+
+  letter-spacing:4px;
+}
+
+.cta-content h2{
+  font-size:clamp(4rem,8vw,8rem);
+
+  line-height:.9;
+
+  margin:25px 0;
+}
+
+.cta-content p{
+  max-width:650px;
+
+  margin:auto;
+
+  color:var(--text-light);
+
+  line-height:1.8;
+}
+
+.cta-content button{
+  margin-top:40px;
+
+  border:none;
+
+  background:var(--text);
+
+  color:white;
+
+  padding:20px 40px;
+
+  border-radius:999px;
+}
+
+/* ==========================
+   LARGE LAPTOP
+========================== */
+
+@media (max-width: 1200px) {
+
+  .cta-content {
+    max-width: 800px;
+  }
+
+  .cta-content h2 {
+    font-size: 5rem;
+  }
+}
+
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width: 992px) {
+
+  .cta {
+    min-height: 70vh;
+    padding: 100px 5%;
+  }
+
+  .cta-content {
+    max-width: 700px;
+  }
+
+  .cta-content h2 {
+    font-size: 4rem;
+  }
+
+  .cta-content p {
+    max-width: 100%;
+  }
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 768px) {
+
+  .cta {
+    min-height: auto;
+    padding: 100px 5%;
+  }
+
+  .cta-content span {
+    font-size: 0.8rem;
+  }
+
+  .cta-content h2 {
+    font-size: 3rem;
+    margin: 20px 0;
+  }
+
+  .cta-content p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .cta-content button {
+    width: 100%;
+    padding: 18px;
+  }
+}
+
+/* ==========================
+   SMALL MOBILE
+========================== */
+
+@media (max-width: 480px) {
+
+  .cta {
+    padding: 80px 4%;
+  }
+
+  .cta-content h2 {
+    font-size: 2.3rem;
+  }
+
+  .cta-content p {
+    font-size: 0.9rem;
+  }
+
+  .cta-content button {
+    font-size: 0.9rem;
+    padding: 16px;
+  }
+}

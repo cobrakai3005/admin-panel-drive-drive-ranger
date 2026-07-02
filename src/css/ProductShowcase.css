@@ -1,0 +1,206 @@
+.products{
+  padding:150px 7%;
+
+  background:var(--bg);
+}
+
+.product-row{
+  display:flex;
+  align-items:center;
+
+  gap:80px;
+
+  margin-bottom:150px;
+}
+
+.reverse{
+  flex-direction:row-reverse;
+}
+
+.product-image{
+  flex:1;
+
+  border-radius:var(--radius);
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow);
+}
+
+.product-image img{
+  width:100%;
+  height:650px;
+
+  object-fit:cover;
+
+  transition:.8s;
+}
+
+.product-image:hover img{
+  transform:scale(1.05);
+}
+
+.product-content{
+  flex:1;
+}
+
+.product-content span{
+  color:var(--accent);
+
+  letter-spacing:3px;
+}
+
+.product-content h3{
+  font-size:clamp(3rem,6vw,5rem);
+
+  margin:20px 0;
+}
+
+.product-content p{
+  color:var(--text-light);
+
+  line-height:1.8;
+
+  margin-bottom:35px;
+}
+
+.product-content button{
+  border:none;
+
+  background:var(--text);
+
+  color:white;
+
+  padding:18px 35px;
+
+  border-radius:999px;
+}
+
+
+
+/* ==========================
+   LARGE LAPTOP
+========================== */
+
+@media (max-width: 1200px) {
+
+  .product-row {
+    gap: 50px;
+  }
+
+  .product-image img {
+    height: 550px;
+  }
+
+  .product-content h3 {
+    font-size: 3.5rem;
+  }
+}
+
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width: 992px) {
+
+  .products {
+    padding: 120px 5%;
+  }
+
+  .product-row,
+  .reverse {
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 100px;
+  }
+
+  .product-image {
+    width: 100%;
+  }
+
+  .product-image img {
+    height: 500px;
+  }
+
+  .product-content {
+    width: 100%;
+  }
+
+  .product-content h3 {
+    font-size: 3rem;
+  }
+
+  .product-content p {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 768px) {
+
+  .products {
+    padding: 100px 5%;
+  }
+
+  .product-row {
+    margin-bottom: 80px;
+  }
+
+  .product-image img {
+    height: 350px;
+    border-radius: 20px;
+  }
+
+  .product-content span {
+    font-size: 0.8rem;
+  }
+
+  .product-content h3 {
+    font-size: 2.2rem;
+    margin: 15px 0;
+  }
+
+  .product-content p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+  }
+
+  .product-content button {
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+/* ==========================
+   SMALL MOBILE
+========================== */
+
+@media (max-width: 480px) {
+
+  .products {
+    padding: 80px 4%;
+  }
+
+  .product-image img {
+    height: 280px;
+  }
+
+  .product-content h3 {
+    font-size: 1.8rem;
+  }
+
+  .product-content p {
+    font-size: 0.9rem;
+  }
+
+  .product-content button {
+    font-size: 0.9rem;
+    padding: 14px;
+  }
+}
+
+
