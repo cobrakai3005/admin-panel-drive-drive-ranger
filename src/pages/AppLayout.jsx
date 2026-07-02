@@ -101,7 +101,7 @@ const navGroups = [
   {
     label: "System",
     items: [
-      { path: "/audit-logs", icon: ScrollText, label: "Audit Logs" },
+      // { path: "/audit-logs", icon: ScrollText, label: "Audit Logs" },
       { path: "/settings", icon: Settings, label: "Settings" },
     ],
   },

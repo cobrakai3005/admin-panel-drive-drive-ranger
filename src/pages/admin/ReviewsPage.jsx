@@ -10,12 +10,17 @@ import {
 } from "../../api/reviews";
 import StatusBadge from "../../components/shared/StatusBadge";
 import Select from "react-select";
+import { toast } from "sonner";
+import { confirmDelete } from "../../components/shared/Confirm";
+import { Loader2 } from "lucide-react";
 const REVIEW_STATUSES = ["pending", "approved", "rejected"];
 
 export default function ReviewsPage() {
   const [modal, setModal] = useState(null);
   const [status, setStatus] = useState("");
+  const [load, setLoad] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [iseFeaturedLoad, setIsFeaturedLoad] = useState(false);
   const statusOptions = REVIEW_STATUSES.map((status) => ({
     value: status,
     label: status.charAt(0).toUpperCase() + status.slice(1),
@@ -23,16 +28,29 @@ export default function ReviewsPage() {
 
   const handleDeleteImage = async (images) => {
     try {
-      await deleteReviewImages(modal.id, [images]);
+      const ok = await confirmDelete({
+        title: `Delete This`,
+        content: "Are you sure you want Delete?",
+        okText: "Delete",
+      });
+      if (!ok) return;
+      try {
+        setLoad(true);
+        await deleteReviewImages(modal.id, [images]);
 
-      setModal((prev) => ({
-        ...prev,
-        images: prev.images.filter((img) => img.public_id !== images),
-      }));
-
-      setRefreshKey((k) => k + 1);
+        setModal((prev) => ({
+          ...prev,
+          images: prev.images.filter((img) => img.public_id !== images),
+        }));
+        toast.success("Deleteded That");
+        setRefreshKey((k) => k + 1);
+      } catch (error) {
+        toast.error("An Occured While Deleting That");
+      }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoad(false);
     }
   };
 
@@ -68,8 +86,18 @@ export default function ReviewsPage() {
                 type="checkbox"
                 checked={Boolean(review.is_front)}
                 onChange={async () => {
-                  await toggleIsFrontReview(review.id);
-                  setRefreshKey((k) => k + 1);
+                  setIsFeaturedLoad(true);
+                  try {
+                    await toggleIsFrontReview(review.id);
+                    setRefreshKey((k) => k + 1);
+                    toast.success("Is Featured Checked");
+                  } catch (error) {
+                    toast.error(
+                      error?.response?.data?.message || "An Error Occured",
+                    );
+                  } finally {
+                    setIsFeaturedLoad(true);
+                  }
                 }}
               />
             ),
@@ -82,12 +110,13 @@ export default function ReviewsPage() {
                 options={statusOptions}
                 value={statusOptions.find((opt) => opt.value === review.status)}
                 onChange={async (selected) => {
-                  console.log("Review:", review.id);
-                  console.log("New Status:", selected.value);
-                  await moderateReview(review.id, {
-                    status: selected.value,
-                  });
-                  setRefreshKey((prev) => prev + 1);
+                  try {
+                    await moderateReview(review.id, {
+                      status: selected.value,
+                    });
+                    setRefreshKey((prev) => prev + 1);
+                    toast.success("Changed Status");
+                  } catch (error) {}
                   // Call your API here
                   // updateReviewStatus(review.id, selected.value);
                 }}
@@ -157,8 +186,8 @@ export default function ReviewsPage() {
 
           {modal?.images?.length > 0 && (
             <div>
-              <h3 className="font-medium mb-2">Images</h3>
-
+              <h3 className="font-medium mb-2">{load ?<Loader2 className="animate-spin"/>: "Images"}</h3>
+              
               <div className="grid grid-cols-3 gap-3">
                 {modal.images.map((img) => (
                   <div key={img.public_id} className="relative">
@@ -169,10 +198,10 @@ export default function ReviewsPage() {
 
                     {/* Delete button if needed */}
                     <button
-                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2"
+                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 hover:bg-red-200"
                       onClick={() => handleDeleteImage(img.public_id)}
                     >
-                      ×
+                      {"X"}
                     </button>
                   </div>
                 ))}
