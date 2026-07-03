@@ -38,18 +38,12 @@ const ProductImagesAdminPage = lazy(
 const ShipmentAdmin = lazy(() => import("./pages/admin/ShipmentAdminPage"));
 const AccountsPage = lazy(() => import("./pages/admin/AccountsPage"));
 const WebsiteReviews = lazy(() => import("./pages/admin/WebisteReviews"));
+const SettingsPage = lazy(() => import("./pages/admin/SettingsPage"));
 
 const Auth = lazy(() => import("./pages/Auth"));
 const VerifyOTP = lazy(() => import("./pages/VerifyOTP"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-// const Checkout = lazy(() => import("./pages/Checkout"));
-
-const SettingsPage = () => (
-  <div>
-    <h1 className="text-xl font-bold text-slate-900">Settings</h1>
-    <p className="text-slate-500 text-sm mt-2">Admin settings coming soon.</p>
-  </div>
-);
+const Checkout = lazy(() => import("./pages/Checkout"));
 
 const Loader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -203,14 +197,14 @@ const router = createBrowserRouter(
           }
         />
 
-        {/* <Route
+        <Route
           path="check"
           element={
             <Suspense fallback={<Loader />}>
               <Checkout />
             </Suspense>
           }
-        /> */}
+        />
 
         <Route
           path="audit-logs"
@@ -257,7 +251,14 @@ const router = createBrowserRouter(
           }
         />
 
-        <Route path="settings" element={<SettingsPage />} />
+        <Route
+          path="settings"
+          element={
+            <Suspense fallback={<Loader />}>
+              <SettingsPage />
+            </Suspense>
+          }
+        />
 
         <Route
           path="accounts"

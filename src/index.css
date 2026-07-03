@@ -1,25 +1,122 @@
 @import "tailwindcss";
 
-/* Chrome, Edge, Safari */
+@theme inline {
+  --color-primary: var(--color-main);
+  --color-primary-light: var(--color-main-light);
+}
+
+/* Default Theme (Indigo) */
+:root {
+  --color-main: #4f46e5;       
+  --color-main-light: #eef2ff; 
+}
+
+/* Match 'green' from your handleThemeChange('green') */
+[data-theme='green'] {
+  --color-main: #059669;       
+  --color-main-light: #ecfdf5; 
+}
+
+/* Match 'red' from your handleThemeChange('red') */
+[data-theme='red'] {
+  --color-main: #E31E24;       
+  --color-main-light: #fff1f2; 
+}
+
+/* Keep older hard-coded admin utilities aligned with the selected theme. */
+[data-theme] button.bg-indigo-600,
+[data-theme] button.bg-blue-600,
+[data-theme] a.bg-indigo-600,
+[data-theme] a.bg-blue-600 {
+  background-color: var(--color-main);
+}
+
+[data-theme] button.hover\:bg-indigo-700:hover,
+[data-theme] button.hover\:bg-blue-700:hover,
+[data-theme] a.hover\:bg-indigo-700:hover,
+[data-theme] a.hover\:bg-blue-700:hover {
+  background-color: color-mix(in srgb, var(--color-main) 88%, black);
+}
+
+[data-theme] button.bg-indigo-50,
+[data-theme] button.bg-blue-50,
+[data-theme] a.bg-indigo-50,
+[data-theme] a.bg-blue-50,
+[data-theme] button.bg-indigo-100,
+[data-theme] button.bg-blue-100,
+[data-theme] a.bg-indigo-100,
+[data-theme] a.bg-blue-100 {
+  background-color: var(--color-main-light);
+}
+
+[data-theme] button.text-indigo-600,
+[data-theme] button.text-indigo-700,
+[data-theme] button.text-blue-600,
+[data-theme] button.text-blue-700,
+[data-theme] a.text-indigo-600,
+[data-theme] a.text-indigo-700,
+[data-theme] a.text-blue-600,
+[data-theme] a.text-blue-700 {
+  color: var(--color-main);
+}
+
+[data-theme] button.border-indigo-200,
+[data-theme] button.border-blue-200,
+[data-theme] a.border-indigo-200,
+[data-theme] a.border-blue-200 {
+  border-color: color-mix(in srgb, var(--color-main) 30%, white);
+}
+
+[data-theme] button.shadow-indigo-200,
+[data-theme] a.shadow-indigo-200 {
+  --tw-shadow-color: color-mix(in srgb, var(--color-main) 25%, transparent);
+}
+
+[data-theme] input.focus\:border-indigo-500:focus,
+[data-theme] input.focus\:border-blue-500:focus,
+[data-theme] textarea.focus\:border-indigo-500:focus,
+[data-theme] textarea.focus\:border-blue-500:focus,
+[data-theme] select.focus\:border-indigo-500:focus,
+[data-theme] select.focus\:border-blue-500:focus {
+  border-color: var(--color-main);
+}
+
+[data-theme] input.focus\:ring-indigo-500\/20:focus,
+[data-theme] input.focus\:ring-blue-500\/20:focus,
+[data-theme] textarea.focus\:ring-indigo-500\/20:focus,
+[data-theme] textarea.focus\:ring-blue-500\/20:focus,
+[data-theme] select.focus\:ring-indigo-500\/20:focus,
+[data-theme] select.focus\:ring-blue-500\/20:focus {
+  --tw-ring-color: color-mix(in srgb, var(--color-main) 20%, transparent);
+}
+
+[data-theme] input[type="file"]::file-selector-button {
+  background-color: var(--color-main-light);
+  color: var(--color-main);
+}
+/* --- Themeable Scrollbar --- */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+  height: 6px; /* Height for horizontal scroll */
+  width: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #5b59ed;
+  background: var(--color-main-light);
+  border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #3129d4;
-  border-radius: 9999px;
+  background: var(--color-main);
+  border-radius: 10px;
+  opacity: 0.8;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  filter: brightness(0.9);
 }
 
 /* Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #64748b #f1f5f9;
+  scrollbar-color: var(--color-main) var(--color-main-light);
 }

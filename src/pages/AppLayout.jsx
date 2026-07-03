@@ -113,6 +113,14 @@ export default function AppLayout() {
 
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("admin-theme") || "default";
+  });
+
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+    localStorage.setItem("admin-theme", newTheme);
+  };
   const location = useLocation();
   const { user, logout } = useAuthProvider();
 
@@ -184,9 +192,12 @@ export default function AppLayout() {
     });
   };
   return (
-    <div className="flex min-h-screen overflow-x-scroll bg-slate-50">
+    <div
+      data-theme={theme}
+      className="flex min-h-screen overflow-x-scroll bg-slate-50"
+    >
       <aside
-        className={`fixed top-0 left-0 h-full bg-blue-800 text-zinc-200 transition-all duration-300 z-50 shadow-2xl ${
+        className={`fixed top-0 left-0 h-full bg-primary text-zinc-200 transition-all duration-300 z-50 shadow-2xl ${
           sidebarOpen ? "w-44 md:w-72" : "w-[72px]"
         }`}
       >
@@ -194,7 +205,7 @@ export default function AppLayout() {
           <div className="flex items-center gap-2.5 min-w-0">
             {sidebarOpen && (
               <>
-                <Store className="text-indigo-400 shrink-0" size={22} />
+                <Store className="text-primary-light shrink-0" size={22} />
                 <span className="text-lg font-bold bg-gradient-to-r from-slate-50 to-slate-500 bg-clip-text text-transparent truncate">
                   4x4 Admin
                 </span>
@@ -209,7 +220,7 @@ export default function AppLayout() {
             {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
-        <nav className="flex-1 px-2 py-3 overflow-y-auto scrollbar scrollbar-thumb-indigo-500 scrollbar-track-slate-100 max-h-[calc(100vh-100px)]">
+        <nav className="custom-scrollbar flex-1 px-2 py-3 overflow-y-auto max-h-[calc(100vh-100px)]">
           {/* Dashboard */}
           {standaloneNavItems.map((item) => (
             <NavLink
@@ -217,10 +228,10 @@ export default function AppLayout() {
               to={item.path}
               end={item.end}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-xl mb-3 transition-all text-zinc-100 group relative ${
+                `flex items-center gap-3 px-3 py-2.5 rounded-xl mb-3 transition-all group relative ${
                   isActive
-                    ? "bg-white shadow-lg text-zinc-600 shadow-indigo-900/40"
-                    : "hover:bg-blue-700 hover:text-white"
+                    ? "bg-primary-light text-primary shadow-lg shadow-black/15"
+                    : "text-zinc-100 hover:bg-white/10 hover:text-white"
                 }`
               }
             >
@@ -247,7 +258,7 @@ export default function AppLayout() {
               {sidebarOpen && (
                 <button
                   onClick={() => toggleGroup(group.label)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-xs font-bold uppercase tracking-widest text-slate-100 hover:bg-blue-700 rounded-lg transition"
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs font-bold uppercase tracking-widest text-slate-100 hover:bg-white/10 rounded-lg transition"
                 >
                   <span>{group.label}</span>
 
@@ -275,10 +286,10 @@ export default function AppLayout() {
                     to={item.path}
                     end={item.end}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-3 py-2.5 rounded-xl mb-0.5 transition-all text-zinc-100 group relative ${
+                      `flex items-center gap-3 px-3 py-2.5 rounded-xl mb-0.5 transition-all group relative ${
                         isActive
-                          ? "bg-white shadow-lg text-zinc-600 shadow-indigo-900/40"
-                          : "hover:bg-blue-700 hover:text-white"
+                          ? "bg-primary-light text-primary shadow-lg shadow-black/15"
+                          : "text-zinc-100 hover:bg-white/10 hover:text-white"
                       }`
                     }
                   >
@@ -378,7 +389,7 @@ export default function AppLayout() {
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-100"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 flex items-center justify-center text-white text-xs font-bold">
+                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
                     {initials}
                   </div>
                   {sidebarOpen && (
@@ -430,7 +441,7 @@ export default function AppLayout() {
 
         <div className="p-4 md:p-6">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 md:p-6 min-h-[calc(100vh-120px)]">
-            <Outlet />
+            <Outlet context={{ theme, setTheme: handleThemeChange }} />
           </div>
         </div>
       </main>

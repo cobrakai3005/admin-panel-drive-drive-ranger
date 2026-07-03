@@ -416,6 +416,7 @@ const defaultForm = {
   seo_keywords: "",
   sku: "",
   price: "",
+  tax_percentage: "",
   weight: "",
   width: "",
   height: "",
@@ -610,6 +611,14 @@ export default function ProductsAdminPage() {
           min: 0,
           step: 0.01,
         },
+        {
+          name: "tax_percentage",
+          label: "Tax Percentage (%)",
+          type: "number",
+          required: true,
+          min: 0,
+          step: 0.01,
+        },
 
         {
           name: "available_stock",
@@ -738,6 +747,7 @@ export default function ProductsAdminPage() {
 
         // Convert numbers
         price: Number(form.price) || 0,
+        tax_percentage: Number(form.tax_percentage) || 0.0,
         weight: Number(form.weight) || 0,
         width: Number(form.width) || 0,
         height: Number(form.height) || 0,

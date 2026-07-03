@@ -265,39 +265,98 @@ export default function ShipmentAdmin() {
         wide="large"
       >
         {detailModal && (
-          <div className="p-6 space-y-6 min-h-[80vh] overflow-y-auto">
+          <div className="p-6 space-y-6 min-h-[80vh] overflow-auto">
             {/* {Trackking } */}
 
             <div className="space-y-2">
               {history?.length ? (
-                history.map((event, index) => (
-                  <div key={index} className="relative flex gap-4">
-                    {/* Timeline */}
-                    <div className="flex flex-col items-center">
-                      <div className="w-3 h-3 rounded-full bg-indigo-600 mt-1" />
-                      {index !== history.length - 1 && (
-                        <div className="w-0.5 flex-1 bg-gray-300 mt-1" />
-                      )}
-                    </div>
+                <div className="overflow-x-auto scrollbar scrollbar-thumb-indigo-500 scrollbar-track-slate-100 pb-8 pt-4">
+                  <div className="flex items-start min-w-max px-6">
+                    {history.map((event, index) => {
+                      const isLatest = index === 0; // Most recent event
+                      const isLast = index === history.length - 1; // Oldest event
 
-                    {/* Content */}
-                    <div className="flex-1 pb-6">
-                      <div className="bg-white border border-zinc-300 rounded-lg p-4 shadow-sm">
-                        <h5 className="font-semibold text-gray-900">
-                          {event.event}
-                        </h5>
+                      return (
+                        <div key={index} className="flex items-start">
+                          {/* Timeline Item */}
+                          <div className="flex flex-col items-center w-52 group">
+                            {/* Dot Logic */}
+                            <div className="relative flex items-center justify-center">
+                              {/* Only the latest event pulses */}
+                              {isLatest && (
+                                <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-indigo-400 opacity-40"></span>
+                              )}
 
-                        <p className="text-sm text-gray-500 mt-1">
-                          {new Date(event.timestamp).toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
+                              {/* All dots are Indigo because they are all in the history (completed) */}
+                              <div
+                                className={`relative z-10 w-5 h-5 rounded-full border-4 border-white shadow-sm bg-indigo-600`}
+                              />
+                            </div>
+
+                            {/* Card */}
+                            <div
+                              className={`mt-5 relative flex flex-col p-4 rounded-2xl border transition-all w-full ${
+                                isLatest
+                                  ? "bg-white border-indigo-200 shadow-md ring-1 ring-indigo-50"
+                                  : "bg-gray-50/50 border-gray-100"
+                              }`}
+                            >
+                              {/* Small Arrow pointing up to the dot */}
+                              <div
+                                className={`absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 border-t border-l ${
+                                  isLatest
+                                    ? "bg-white border-indigo-200"
+                                    : "bg-gray-50 border-gray-100"
+                                }`}
+                              ></div>
+
+                              <h5
+                                className={`font-bold text-sm leading-tight ${
+                                  isLatest ? "text-indigo-900" : "text-gray-700"
+                                }`}
+                              >
+                                {event.event}
+                              </h5>
+
+                              <p className="text-[11px] text-gray-500 mt-2 flex items-center">
+                                <svg
+                                  className="w-3 h-3 mr-1 opacity-60"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                  />
+                                </svg>
+                                {new Date(event.timestamp).toLocaleString([], {
+                                  month: "short",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Connecting Line - All lines are indigo because these events are finished */}
+                          {!isLast && (
+                            <div className="w-20 h-[3px] mt-[9px] -mx-1 bg-indigo-500/30" />
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                ))
+                </div>
               ) : (
-                <p className="text-sm text-gray-500">
-                  No tracking events available.
-                </p>
+                <div className="p-8 text-center border-2 border-dashed border-gray-100 rounded-2xl">
+                  <p className="text-sm text-gray-400">
+                    No tracking history yet.
+                  </p>
+                </div>
               )}
             </div>
             {/*  */}

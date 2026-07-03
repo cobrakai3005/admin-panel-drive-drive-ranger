@@ -332,7 +332,7 @@ function FieldRenderer({ field, form, setForm, editingRow, idKey }) {
                     {comp.make_name}
                   </span>
                   <span className="text-slate-400">{comp.model_name}</span>
-                  <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full font-medium">
+                  <span className="px-2 py-0.5 bg-primary-light text-primary rounded-full font-medium">
                     {comp.generation_name}
                   </span>
                   <span className="text-slate-500">
@@ -379,7 +379,7 @@ function FieldRenderer({ field, form, setForm, editingRow, idKey }) {
           onChange={(e) => onChange(e.target.value)}
           required={field.required}
           placeholder={field.placeholder}
-          className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+          className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
         />
       </div>
     );
@@ -429,7 +429,7 @@ function FieldRenderer({ field, form, setForm, editingRow, idKey }) {
           multiple={field.multiple}
           accept={field.accept || "image/*"}
           onChange={handleFileChange}
-          className="w-full text-sm file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-700 file:font-medium hover:file:bg-indigo-100 cursor-pointer"
+          className="w-full text-sm file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary-light file:text-primary file:font-medium hover:file:bg-primary-light cursor-pointer"
         />
 
         {/* Selected previews */}
@@ -473,7 +473,7 @@ function FieldRenderer({ field, form, setForm, editingRow, idKey }) {
           type="checkbox"
           checked={Boolean(value)}
           onChange={(e) => onChange(e.target.checked)}
-          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4"
+          className="rounded border-slate-300 text-primary focus:ring-primary w-4 h-4"
         />
         {field.label}
       </label>
@@ -482,30 +482,68 @@ function FieldRenderer({ field, form, setForm, editingRow, idKey }) {
 
   // ----- DEFAULT (text, number, date, etc.) -----
   return (
-    <div
-      className={field.colSpan === 2 ? "col-span-2 space-y-1.5" : "space-y-1.5"}
-    >
-      <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+    // <div
+    //   className={field.colSpan === 2 ? "col-span-2 space-y-1.5" : "space-y-1.5"}
+    // >
+    //   <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+    //     {field.label}
+    //     {field.required && " *"}
+    //   </label>
+    //   <input
+    //     type={field.type || "text"}
+    //     value={value}
+    //     onChange={(e) =>
+    //       onChange(
+    //         field.type === "number"
+    //           ? Number(e.target.value) || 0
+    //           : e.target.value,
+    //       )
+    //     }
+    //     required={field.required}
+    //     min={field.min}
+    //     max={field.max}
+    //     step={field.step}
+    //     placeholder={field.placeholder}
+    //     className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+    //   />
+    // </div>
+    <div className={field.colSpan === 2 ? "col-span-2 space-y-2" : "space-y-2"}>
+      <label className="block text-[11px] font-black uppercase tracking-widest text-slate-700 ml-1">
         {field.label}
-        {field.required && " *"}
+        {field.required && <span className="text-primary ml-0.5">*</span>}
       </label>
-      <input
-        type={field.type || "text"}
-        value={value}
-        onChange={(e) =>
-          onChange(
-            field.type === "number"
-              ? Number(e.target.value) || 0
-              : e.target.value,
-          )
-        }
-        required={field.required}
-        min={field.min}
-        max={field.max}
-        step={field.step}
-        placeholder={field.placeholder}
-        className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-      />
+
+      <div className="relative group">
+        <input
+          type={field.type || "text"}
+          value={value}
+          onChange={(e) =>
+            onChange(
+              field.type === "number"
+                ? Number(e.target.value) || 0
+                : e.target.value,
+            )
+          }
+          required={field.required}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          placeholder={field.placeholder}
+          className="
+        w-full px-4 py-3 rounded-xl 
+        bg-white border-2 border-slate-200 
+        text-sm font-medium text-slate-900
+        placeholder:text-slate-400
+        transition-all duration-200
+        shadow-sm
+        hover:border-slate-300
+        focus:outline-none 
+        focus:ring-4 focus:ring-primary/10 
+        focus:border-primary
+        active:scale-[0.99]
+      "
+        />
+      </div>
     </div>
   );
 }
@@ -788,7 +826,10 @@ export default function CrudPage({
                 </tr>
               ) : (
                 rows.map((row, idx) => (
-                  <tr key={row[idKey]} className="hover:bg-indigo-50/20 group">
+                  <tr
+                    key={row[idKey]}
+                    className="hover:bg-primary-light/40 group"
+                  >
                     {columns.map((col) => (
                       <td
                         key={col.key}
@@ -816,7 +857,7 @@ export default function CrudPage({
                             <button
                               type="button"
                               onClick={() => handleToggle(row)}
-                              className="p-2 rounded-lg border border-slate-200 hover:border-indigo-200 hover:text-indigo-600 transition-colors"
+                              className="p-2 rounded-lg border border-slate-200 hover:border-primary/30 hover:text-primary transition-colors"
                               title="Toggle status"
                             >
                               {row.status === "active" ? (
@@ -830,7 +871,7 @@ export default function CrudPage({
                             <button
                               type="button"
                               onClick={() => openEdit(row)}
-                              className="p-2 rounded-lg border border-slate-200 hover:border-indigo-200 hover:text-indigo-600 transition-colors"
+                              className="p-2 rounded-lg border border-slate-200 hover:border-primary/30 hover:text-primary transition-colors"
                             >
                               <Edit3 size={16} />
                             </button>
@@ -893,7 +934,7 @@ export default function CrudPage({
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold disabled:opacity-60"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-semibold disabled:opacity-60"
               >
                 <Save size={16} />
                 {saving ? "Saving..." : editingRow ? "Update" : "Create"}
