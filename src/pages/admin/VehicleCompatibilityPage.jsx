@@ -6,6 +6,7 @@ import {
   removeCompatibility,
   fetchProductOptions,
   fetchGenerationOptions,
+  getGenerations,
 } from "../../api/vehicles";
 import Select from "react-select";
 const defaultForm = {
@@ -19,7 +20,6 @@ export function CompatibilityFilter({ filterState, setFilterState }) {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    
     fetchProductOptions()
       .then(setProducts)
       .catch(console.error)
@@ -319,7 +319,7 @@ export default function VehicleCompatibilityPage() {
           label: "Vehicle Generations",
           type: "multi-select",
           required: true,
-          loadOptions: () => fetchGenerationOptions(),
+          loadOptions: () => getGenerations({ status: "active", limit: 100 }).then(data=> data.data),
           optionLabel: (item) => {
             const makeName = item.make_name || "";
             const modelName = item.model_name || "";

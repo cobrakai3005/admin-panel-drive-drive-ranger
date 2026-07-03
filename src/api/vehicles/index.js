@@ -57,7 +57,7 @@ export const deleteModel = (id) =>
 // ============================================
 // VEHICLE GENERATIONS
 // ============================================
-export const getGenerations = (params) =>
+export const getGenerations = (params = {}) =>
   api.get("/vehicle-generations/get_all_generations", { params }).then(unwrap);
 
 export const getGenerationById = (id) =>
@@ -74,7 +74,7 @@ export const deleteGeneration = (id) =>
 
 export const fetchVehicleGenerationOptions = async (productId) => {
   console.log(productId);
-  
+
   const res = productId
     ? await api.get(
         `/vehicle-generations/get_all_available_generation/${productId}`,
