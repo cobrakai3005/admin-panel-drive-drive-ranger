@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api" || import.meta.env.VITE_BACKEND_URL ,
+  baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -25,7 +25,6 @@ api.interceptors.response.use(
     const status = error.response?.status;
     const data = error.response?.data;
 
-    
     const isTokenExpired =
       status === 401 && String(data?.data || "").includes("jwt expired");
 
