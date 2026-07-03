@@ -79,7 +79,7 @@ export default function VehicleGenerationsPage() {
       fetchList={(page, filters) =>
         getGenerations({
           page,
-          limit: 5,
+          limit: 10,
           status: filters.status || "active",
           search: filters.search || "",
         })

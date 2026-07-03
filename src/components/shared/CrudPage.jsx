@@ -572,6 +572,8 @@ export default function CrudPage({
   emptyMessage = "No records found.",
   preparePayload,
   onEditRow,
+  onFilterChange,
+  initialFilterState = {},
 }) {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(1);
@@ -581,7 +583,7 @@ export default function CrudPage({
   const [modalOpen, setModalOpen] = useState(false);
   const [editingRow, setEditingRow] = useState(null);
   const [form, setForm] = useState(defaultForm);
-  const [filterState, setFilterState] = useState({});
+  const [filterState, setFilterState] = useState(initialFilterState);
   const [currentPage, setCurrentPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const firstFilterRender = useRef(true);
@@ -609,6 +611,16 @@ export default function CrudPage({
   }, [load]);
 
   // FIX: Reset to page 1 when filters change
+  const handleFilterChange = useCallback(
+    (newFilterState) => {
+      setFilterState(newFilterState);
+      if (onFilterChange) {
+        onFilterChange(newFilterState);
+      }
+    },
+    [onFilterChange],
+  );
+
   useEffect(() => {
     if (firstFilterRender.current) {
       firstFilterRender.current = false;
@@ -769,7 +781,7 @@ export default function CrudPage({
             {FilterComponent && (
               <FilterComponent
                 filterState={filterState}
-                setFilterState={setFilterState}
+                setFilterState={handleFilterChange}
               />
             )}
             <button
