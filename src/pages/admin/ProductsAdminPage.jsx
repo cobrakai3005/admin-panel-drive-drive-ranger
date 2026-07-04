@@ -1,4 +1,3 @@
-
 import CrudPage from "../../components/shared/CrudPage";
 import { fetchCategoryOptions } from "../../api/categories";
 import { fetchSubcategoryOptions } from "../../api/subcategories";
@@ -288,7 +287,6 @@ export default function ProductsAdminPage() {
           name: "tax_percentage",
           label: "Tax Percentage (%)",
           type: "number",
-          required: true,
           min: 0,
           step: 0.01,
         },
