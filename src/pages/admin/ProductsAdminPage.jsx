@@ -37,11 +37,21 @@ function ProductFilters({ filterState, setFilterState }) {
     { value: "inactive", label: "Inactive" },
     { value: "all", label: "All" },
   ];
+  const sortOptions = [
+    { value: "price_low_high", label: "Price: Low to High" },
+    { value: "price_high_low", label: "Price: High to Low" },
+    { value: "latest", label: "Latest" },
+    { value: "oldest", label: "Oldest" },
+  ];
 
   const currentStatus =
     statusOptions.find(
       (opt) => opt.value === (filterState.status || "active"),
     ) || statusOptions[0];
+
+  const currentSort =
+    sortOptions.find((opt) => opt.value === (filterState.sort || "latest")) ||
+    sortOptions[0];
 
   return (
     <div className="flex items-center gap-3">
@@ -59,6 +69,26 @@ function ProductFilters({ filterState, setFilterState }) {
           setFilterState((prev) => ({
             ...prev,
             status: selected.value,
+          }))
+        }
+        isSearchable={false}
+        className="min-w-[140px] text-sm"
+        classNamePrefix="react-select"
+        styles={{
+          control: (base) => ({
+            ...base,
+            borderRadius: "0.75rem",
+            minHeight: "40px",
+          }),
+        }}
+      />
+      <Select
+        options={sortOptions}
+        value={currentSort}
+        onChange={(selected) =>
+          setFilterState((prev) => ({
+            ...prev,
+            sort: selected.value,
           }))
         }
         isSearchable={false}
@@ -108,6 +138,7 @@ export default function ProductsAdminPage() {
       limit: 10,
       status: filters.status || "active",
       search: filters.search || "",
+      sort_by: filters.sort || "latest",
     });
     return res;
   }, []);

@@ -14,7 +14,7 @@ export default function SidebarSearch({ value, onChange, onClear }) {
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder="Search menu..."
-          className="w-full rounded-xl bg-white/10 border border-white/10 pl-9 pr-8 py-2 text-sm text-white placeholder:text-zinc-400 outline-none focus:bg-white/15 focus:border-primary-light transition"
+          className="w-full rounded-xl bg-white/50 border border-white/10 pl-9 pr-8 py-2 text-sm text-white placeholder:text-zinc-100 font-medium outline-none focus:bg-white/15 focus:border-primary-light transition"
         />
 
         {value && (
