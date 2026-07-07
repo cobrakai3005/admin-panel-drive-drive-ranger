@@ -67,10 +67,10 @@ export const navGroups = [
       { path: "/warranty", icon: Shield, label: "Warranty" },
     ],
   },
-  {
-    label: "System",
-    items: [{ path: "/settings", icon: Settings, label: "Settings" }],
-  },
+  // {
+  //   label: "System",
+  //   items: [{ path: "/settings", icon: Settings, label: "Settings" }],
+  // },
 ];
 
 export function getSidebarPageTitle(pathname) {

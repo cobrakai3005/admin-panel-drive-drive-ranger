@@ -274,7 +274,7 @@ export default function VehicleCompatibilityPage() {
   return (
     <CrudPage
       title="Vehicle Compatibility"
-      description="Link products to compatible vehicle generations"
+      description="Link products to compatible vehicle generations. Please Select a product to view or add compatibility."
       idKey="id"
       modalWide
       defaultForm={defaultForm}
@@ -296,13 +296,6 @@ export default function VehicleCompatibilityPage() {
       }
       createItem={addCompatibility}
       deleteItem={removeCompatibility}
-      // filters={(filterState, setFilterState) => (
-      //   <CompatibilityFilter
-      //     filterState={filterState}
-      //     setFilterState={setFilterState}
-      //   />
-      // )}
-
       FilterComponent={CompatibilityFilter}
       // Sync internal filterState to our local state
       onFilterChange={(newFilterState) => setFilterState(newFilterState)}

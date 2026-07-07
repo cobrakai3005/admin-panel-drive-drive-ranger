@@ -160,7 +160,7 @@ export default function AppLayout() {
 
         <div className="p-4 md:p-6">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 md:p-6 min-h-[calc(100vh-120px)]">
-            <Outlet context={{ theme, setTheme: handleThemeChange }} />
+            <Outlet context={{ theme, 59: handleThemeChange }} />
           </div>
         </div>
       </main>

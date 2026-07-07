@@ -37,7 +37,7 @@ export default function ProductImagesAdminPage() {
   const [error, setError] = useState("");
   const [showInactive, setShowInactive] = useState(false);
   const [toast, setToast] = useState(null);
-
+  const [productLoading, setProductLoading] = useState(false);
   // Toast notification
   const showToast = (message, type = "success") => {
     setToast({ message, type });
@@ -47,9 +47,11 @@ export default function ProductImagesAdminPage() {
   // Fetch product options for dropdown (if no productId from URL)
   useEffect(() => {
     if (!urlProductId) {
+      setProductLoading(true);
       fetchProductOptions("active")
         .then(setProductOptions)
-        .catch(console.error);
+        .catch(console.error)
+        .finally(() => setProductLoading(false));
     }
   }, [urlProductId]);
 

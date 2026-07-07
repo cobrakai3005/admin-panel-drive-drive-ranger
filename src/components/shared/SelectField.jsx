@@ -59,6 +59,14 @@ export default function SelectField({
         onChange={(opt) => onChange(opt?.value ?? "")}
         isLoading={isLoading}
         isClearable
+        classNames={{
+          control: ({ isFocused }) =>
+            `border ${
+              isFocused
+                ? "border-red-500 ring-2 ring-red-200"
+                : "border-zinc-300"
+            }`,
+        }}
         isDisabled={field.disabled || (field.dependsOn && !dependencyValue)}
       />
     </div>

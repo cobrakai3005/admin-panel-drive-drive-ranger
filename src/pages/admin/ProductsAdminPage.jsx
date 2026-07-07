@@ -53,6 +53,7 @@ function ProductFilters({ filterState, setFilterState }) {
     sortOptions.find((opt) => opt.value === (filterState.sort || "latest")) ||
     sortOptions[0];
 
+  //#4f46e5
   return (
     <div className="flex items-center gap-3">
       <input
@@ -72,7 +73,15 @@ function ProductFilters({ filterState, setFilterState }) {
           }))
         }
         isSearchable={false}
-        className="min-w-[140px] text-sm"
+        // classNames="min-w-[140px] text-sm "
+        classNames={{
+          control: ({ isFocused }) =>
+            `border ${
+              isFocused
+                ? "border-indigo-500 ring-2 ring-indigo-200"
+                : "border-zinc-300"
+            }`,
+        }}
         classNamePrefix="react-select"
         styles={{
           control: (base) => ({

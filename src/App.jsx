@@ -251,14 +251,20 @@ const router = createBrowserRouter(
           }
         />
 
-        <Route
+        {/* <Route
           path="settings"
           element={
-            <Suspense fallback={<Loader />}>
-              <SettingsPage />
-            </Suspense>
+            // <Suspense fallback={<Loader />}>
+            //   <SettingsPage />
+            // </Suspense>
+
+            <>
+              <h1 className="text-2xl font-bold">
+                Settings Functionality Comming Soon
+              </h1>
+            </>
           }
-        />
+        /> */}
 
         <Route
           path="accounts"

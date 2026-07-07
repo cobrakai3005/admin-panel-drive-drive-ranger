@@ -103,9 +103,10 @@ export const getAvailableVehicleGenerations = async (productId) => {
 // VEHICLE COMPATIBILITY
 // ============================================
 export const getCompatibilityByProduct = (productId, params) => {
-  const url = productId
-    ? `/vehicle-compatibility/product/${productId}`
-    : "/vehicle-compatibility/all";
+  if (!productId) {
+    throw new Error("Please Select a product to view compatibility.");
+  }
+  const url = `/vehicle-compatibility/product/${productId}`;
   return api.get(url, { params }).then(unwrap);
 };
 

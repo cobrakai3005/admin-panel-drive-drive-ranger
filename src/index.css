@@ -7,8 +7,8 @@
 
 /* Default Theme (Indigo) */
 :root {
-  --color-main: #4f46e5;       
-  --color-main-light: #eef2ff; 
+  --color-main: #c4050c;       
+  --color-main-light: #fff1f2; 
 }
 
 /* Match 'green' from your handleThemeChange('green') */

@@ -593,13 +593,14 @@ export default function CrudPage({
     setLoading(true);
     try {
       const res = await fetchList(page, filterState);
+      
       setRows(res?.data || []);
       setTotalPages(res?.pagination?.totalPages || 1);
       setCurrentPage(res?.pagination?.page || 0);
       setLimit(res?.pagination?.limit || 10);
     } catch (err) {
-      console.error("Failed to load data:", err);
-      toast.error("Failed to load data");
+      console.error("Failed to load data:",);
+      toast.error(err.message);
       setRows([]);
     } finally {
       setLoading(false);
